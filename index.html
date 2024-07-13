@@ -1,0 +1,91 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="box">
+        <button type="button" class="prev"> <a href="#"> Prev</a></button>
+        <ul class="ul">
+           <!-- <li><a href="#" class="page_number">1</a></li>
+            <li><a href="#" class="page_number active_page">2</a></li>
+            <li><a href="#" class="page_number">3</a></li>
+            <li><a href="#" class="page_number">4</a></li>
+            <li><a href="#" class="page_number">5</a></li> -->
+        </ul>
+
+        <button type="button" class="next"> <a href="#"> Next</a></button>
+
+    </div>
+</body>
+<script>
+
+    let ul = document.querySelector(".ul");
+    let prev = document.querySelector(".prev");
+    let next= document.querySelector(".next");
+    let current_page = 5;
+    let total_page = 15;
+    let active_page = "";
+
+    create_pages (current_page);
+
+    function create_pages(current_page) {
+        ul.innerHTML  ="";
+
+        let before_page = current_page -2;
+        let after_page = current_page +2;
+
+        if ( current_page == 2){
+            before_page = current_page -1;
+        }
+        if ( current_page == 1){
+            before_page = current_page;
+        }
+        if ( current_page == total_page - 1 ){
+            after_page = current_page + 1 ;
+        }
+        if ( current_page == total_page){
+            after_page = current_page;
+        }
+
+      
+        for (let i = before_page; i <=  after_page; i++) {
+            if (current_page == i){
+                active_page = "active_page";
+            } 
+            else {
+                active_page = "";
+
+            }
+            
+            ul.innerHTML += `<li onclick="create_pages(`+i+`)"><a href="#" class="page_number `+ active_page +`">`+i+`</a></li>`;
+            
+        }
+
+        prev.onclick = function() {
+            current_page--;
+            create_pages(current_page)
+        }
+        if (current_page <= 1){
+            prev.style.display = "none";
+        }
+        else {
+            prev.style.display = "block";
+        }
+        next.onclick = function() {
+            current_page++;
+            create_pages(current_page)
+        }
+        if (current_page >= total_page){
+            next.style.display = "none";
+        }
+        else {
+            next.style.display = "block";
+        }
+    }
+
+
+</script>
+</html>
